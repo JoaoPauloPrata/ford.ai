@@ -1,31 +1,44 @@
-import React, { createContext, useContext } from 'react';
+import React, { useContext, createContext, useRef } from 'react';
 import { useEditor } from '../hooks/useEditor';
 import { useCanvas } from '../hooks/useCanvas';
 import { useImages } from '../hooks/useImages';
+import { useLayers } from '../hooks/useLayers';
 
-// Crie o contexto e exporte-o
-export const EditorContext = createContext();
+// Criar o contexto
+export const EditorContext = createContext({});
 
 // Hook para uso em outros componentes
 export const useEditorContext = () => useContext(EditorContext);
 
-const EditorProvider = ({ children }) => {
-  const editor = useEditor();
-  const canvas = useCanvas();
-  const images = useImages();
-
-  // Combine todos os valores em um único objeto para o contexto
-  const value = {
-    ...editor,
-    ...canvas,
-    ...images
+export const EditorProvider = ({ children }) => {
+  // Refs para os elementos DOM importantes
+  const canvasRef = useRef(null);
+  const contextRef = useRef(null);
+  const imageContainerRef = useRef(null);
+  
+  // Usar os hooks personalizados
+  const editorState = useEditor();
+  const imagesState = useImages();
+  const canvasState = useCanvas ? useCanvas() : {};
+  const layersState = useLayers ? useLayers() : {};
+  
+  // Combinar todos os estados e refs no contexto
+  const contextValue = {
+    ...editorState,
+    ...imagesState,
+    ...canvasState,
+    ...layersState,
+    canvasRef,
+    contextRef,
+    imageContainerRef
   };
 
   return (
-    <EditorContext.Provider value={value}>
+    <EditorContext.Provider value={contextValue}>
       {children}
     </EditorContext.Provider>
   );
 };
 
 export default EditorProvider; 
+

@@ -1,0 +1,245 @@
+/* Estilos para o painel de propriedades */
+.right-panel {
+  width: 300px;
+  background-color: #222;
+  border-radius: 4px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.properties-section {
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.properties-section h2 {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.property-group {
+  margin-bottom: 15px;
+}
+
+.property-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ddd;
+  font-size: 14px;
+}
+
+.size-inputs,
+.position-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.size-inputs input,
+.position-inputs input {
+  width: 70px;
+  padding: 5px;
+  background-color: #333;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.size-inputs span {
+  display: flex;
+  align-items: center;
+  color: #666;
+}
+
+#apply-changes,
+#cancel-changes {
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  background-color: #3dd1e7;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#cancel-changes {
+  background-color: #666;
+  color: #fff;
+  margin-top: 5px;
+}
+
+#apply-changes:hover {
+  background-color: #2bb5cb;
+}
+
+#cancel-changes:hover {
+  background-color: #555;
+}
+
+/* Mensagem quando nenhuma imagem está selecionada */
+.no-selection-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  text-align: center;
+  color: #666;
+}
+
+.no-selection-message i {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.no-selection-message p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Estilos para a lista de camadas */
+.layers-panel {
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.layers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.layers-header h2 {
+  font-size: 16px;
+  margin: 0;
+  color: #fff;
+}
+
+.layers-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.add-layer-btn,
+.merge-layers-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  background-color: #444;
+  color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-layer-btn:hover,
+.merge-layers-btn:hover {
+  background-color: #555;
+}
+
+.merge-layers-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.layers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+.layer-item:hover {
+  background-color: #3a3a3a;
+}
+
+.layer-item.selected {
+  background-color: #444;
+}
+
+.layer-item.active {
+  border-left-color: #3dd1e7;
+}
+
+.layer-controls {
+  display: flex;
+  gap: 5px;
+  margin-right: 8px;
+}
+
+.visibility-btn,
+.lock-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: #777;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visibility-btn.visible,
+.lock-btn.locked {
+  color: #3dd1e7;
+}
+
+.layer-item input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #ddd;
+  font-size: 14px;
+  outline: none;
+  padding: 2px 0;
+}
+
+.delete-layer-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: #777;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.layer-item:hover .delete-layer-btn {
+  opacity: 1;
+}
+
+.delete-layer-btn:hover {
+  color: #ff4444;
+} 

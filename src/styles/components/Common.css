@@ -1,0 +1,82 @@
+/* Estilos para componentes comuns como popups */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.save-popup {
+  background-color: #222;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.save-popup h2 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.format-selection {
+  margin-bottom: 20px;
+}
+
+.format-selection label {
+  display: block;
+  color: #ddd;
+  margin-bottom: 8px;
+}
+
+.format-selection select {
+  width: 100%;
+  padding: 8px;
+  background-color: #333;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.download-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.download-btn {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+.download-btn:hover {
+  background-color: #2bb5cb;
+}
+
+.cancel-btn {
+  background-color: #666;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background-color: #555;
+} 

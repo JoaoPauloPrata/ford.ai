@@ -1,38 +1,1036 @@
-.App {
+/* Estilos gerais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #333;
+  color: #fff;
+}
+
+/* Cabeçalho */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #111;
+}
+
+.logo h1 {
+  color: #3dd1e7;
+  font-style: italic;
+}
+
+.nav-menu ul {
+  display: flex;
+  list-style: none;
+}
+
+.nav-menu li {
+  margin-left: 20px;
+}
+
+.nav-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Barra de ferramentas */
+.toolbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #222;
+  border-bottom: 1px solid #444;
+}
+
+.tool-btn {
+  background: none;
+  border: none;
+  color: #ddd;
+  margin-right: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.tool-btn i {
+  margin-right: 5px;
+}
+
+.tool-btn.active {
+  border-bottom: 2px solid #3dd1e7;
+  color: #fff;
+}
+
+.settings-btn {
+  margin-left: auto;
+  cursor: pointer;
+  color: #ddd;
+  font-size: 18px;
+}
+
+/* Conteúdo principal */
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+/* Painel esquerdo */
+.left-panel {
+  width: 250px;
+  background-color: #222;
+  border-right: 1px solid #444;
+  padding: 20px 10px;
+}
+
+.tools-section h2 {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #444;
+}
+
+.tool-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tool-item:hover:not(.disabled) {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+.tool-item i {
+  margin-right: 10px;
+  font-size: 16px;
+  width: 20px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+/* Área do canvas */
+.canvas-container {
+  flex: 1;
+  background-color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: auto;
+}
+
+#canvas-area {
+  background-color: #555;
+  width: 800px;
+  height: 600px;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+
+#image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.uploaded-image {
+  position: absolute;
+  cursor: move;
+  border: 2px solid transparent;
+}
+
+.uploaded-image.selected {
+  border: 2px solid #3dd1e7;
+}
+
+.resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #3dd1e7;
+  border-radius: 50%;
+}
+
+.resize-handle.tl {
+  top: -5px;
+  left: -5px;
+  cursor: nw-resize;
+}
+
+.resize-handle.tr {
+  top: -5px;
+  right: -5px;
+  cursor: ne-resize;
+}
+
+.resize-handle.bl {
+  bottom: -5px;
+  left: -5px;
+  cursor: sw-resize;
+}
+
+.resize-handle.br {
+  bottom: -5px;
+  right: -5px;
+  cursor: se-resize;
+}
+
+/* Painel direito */
+.right-panel {
+  width: 300px;
+  background-color: #222;
+  border-left: 1px solid #444;
+  padding: 20px;
+}
+
+.properties-section {
+  display: block;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.size-inputs,
+.position-inputs {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.size-inputs input,
+.position-inputs input {
+  width: 70px;
+  padding: 5px;
+  background-color: #333;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.size-inputs span {
+  color: #666;
+  align-self: center;
+}
+
+#apply-changes,
+#cancel-changes {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#apply-changes {
+  background-color: #3dd1e7;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+#cancel-changes {
+  background-color: #666;
+  color: #fff;
+}
+
+#apply-changes:hover {
+  background-color: #2bb5cb;
+}
+
+#cancel-changes:hover {
+  background-color: #555;
+}
+
+/* Rodapé */
+.footer {
+  background-color: #111;
+  padding: 20px;
+  text-align: center;
+}
+
+.social-links {
+  margin-bottom: 15px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin: 0 10px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.footer-links {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 12px;
+}
+
+.copyright {
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .left-panel, .right-panel {
+    width: 200px;
+  }
+}
+
+@media (max-width: 992px) {
+  .main-content {
+    flex-direction: column;
+  }
+  .left-panel, .right-panel {
+    width: 100%;
+    border: none;
+  }
+  .left-panel {
+    border-bottom: 1px solid #444;
+  }
+  .right-panel {
+    border-top: 1px solid #444;
+  }
+}
+
+/* Estilo para ferramenta desabilitada */
+.tool-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* Botão de exclusão na imagem */
+.delete-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: #ff4444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+.delete-button:hover {
+  background-color: #ff0000;
+}
+
+/* Ajuste na imagem selecionada para garantir que o botão de exclusão fique visível */
+.uploaded-image.selected {
+  border: 2px solid #3dd1e7;
+  z-index: 10;
+}
+
+/* Estilos para a seção de pincel */
+.section-title {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #aaa;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #444;
+}
+
+.brush-controls {
+  padding: 10px 0;
+}
+
+.brush-color {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brush-color input[type="color"] {
+  -webkit-appearance: none;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.brush-color input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.brush-color input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+.brush-size {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.brush-size label {
+  color: #ddd;
+  font-size: 12px;
+}
+
+.brush-size input[type="range"] {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  background: #444;
+  border-radius: 2px;
+  outline: none;
+}
+
+.brush-size input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #3dd1e7;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.brush-size input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Canvas de desenho */
+.drawing-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.drawing-canvas.active {
+  cursor: crosshair;
+}
+
+/* Ajuste na imagem selecionada */
+.uploaded-image.selected {
+  border: 2px solid #3dd1e7;
+  z-index: 10;
+}
+
+/* Ajuste no botão de exclusão */
+.delete-button {
+  z-index: 20;
+}
+
+/* Estilo para ferramenta ativa */
+.tool-item.active {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+/* Seção do pincel */
+.brush-section {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.brush-controls {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #444;
+}
+
+/* Cursores dinâmicos */
+#image-container.drawing-mode {
+  cursor: crosshair;
+}
+
+#image-container.move-mode {
+  cursor: default;
+}
+
+#image-container.move-mode .uploaded-image {
+  cursor: move;
+}
+
+#image-container.resize-mode {
+  cursor: default;
+}
+
+#image-container.resize-mode .uploaded-image {
+  cursor: se-resize;
+}
+
+#image-container.brush-mode {
+  cursor: crosshair;
+}
+
+#image-container.brush-mode .uploaded-image {
+  cursor: crosshair;
+}
+
+/* Ajuste no estilo do canvas de desenho */
+.drawing-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.drawing-canvas.active {
+  cursor: crosshair;
+}
+
+/* Atualizar o estilo das ferramentas */
+.tool-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tool-item:hover:not(.disabled) {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+.tool-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* Ajuste nos controles do pincel */
+.brush-color {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brush-size {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.brush-size label {
+  color: #ddd;
+  font-size: 12px;
+}
+
+/* Melhorar a visualização do slider */
+.brush-size input[type="range"] {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  background: #444;
+  border-radius: 2px;
+  outline: none;
+}
+
+.brush-size input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #3dd1e7;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.brush-size input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Ajuste na transição das ferramentas */
+.brush-controls {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Ajuste no comportamento do canvas de desenho */
+.drawing-canvas {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.brush-mode .drawing-canvas {
+  pointer-events: all !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Seção de background */
+.background-section {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.background-color {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.background-color label {
+  color: #ddd;
+  font-size: 12px;
+}
+
+.background-color input[type="color"] {
+  -webkit-appearance: none;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.background-color input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.background-color input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+/* Ajuste nas ferramentas para não exigir imagem selecionada */
+.tool-item:not(.requires-image) {
+  opacity: 1 !important;
+  cursor: pointer !important;
+}
+
+.clear-canvas-btn {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-canvas-btn:hover {
+  background-color: #ff0000;
+}
+
+/* Estilo para mensagem quando não há imagem selecionada */
+.no-selection-message {
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.no-selection-message i {
+  font-size: 32px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.no-selection-message p {
+  color: #888;
+  font-size: 14px;
+}
+
+/* Estilos para o painel de camadas */
+.layers-panel {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+}
+
+.layers-panel h2 {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 15px;
+}
+
+.layers-list {
   display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.layer-item:hover {
+  background-color: #333;
+}
+
+.layer-item.active {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+.layer-controls {
+  display: flex;
+  gap: 5px;
+  margin-right: 8px;
+}
+
+.visibility-btn,
+.lock-btn,
+.delete-layer-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+
+.visibility-btn:hover,
+.lock-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.visibility-btn.visible {
+  color: #3dd1e7;
+}
+
+.lock-btn.locked {
+  color: #ff9800;
+}
+
+.delete-layer-btn {
+  margin-left: auto;
+  color: #ff4444;
+}
+
+.delete-layer-btn:hover {
+  color: #ff0000;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.layer-item input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 12px;
+  padding: 2px 5px;
+  margin: 0 5px;
+}
+
+.layer-item input:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+  outline: none;
+  border-radius: 2px;
+}
+
+.layer-item.active input {
+  color: #333;
+}
+
+/* Estilos para o cabeçalho do painel de camadas */
+.layers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.layers-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.add-layer-btn,
+.merge-layers-btn {
+  background: #3dd1e7;
+  border: none;
+  color: #333;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  transition: all 0.2s ease;
+}
+
+.add-layer-btn:hover,
+.merge-layers-btn:hover:not(.disabled) {
+  background: #2bb5cb;
+}
+
+.merge-layers-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #666;
+}
+
+/* Ajuste na seleção de camadas */
+.layer-item.selected {
+  background-color: #2a2a2a;
+}
+
+.layer-item.selected.active {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+/* Estilo para camada base */
+.layer-item:first-child {
+  border-left: 2px solid #3dd1e7;
+}
+
+/* Estilo para o botão de desfazer */
+.tool-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tool-btn:not([disabled]):hover {
+  color: #3dd1e7;
+}
+
+/* Estilos para as ferramentas de desenho */
+.drawing-tools {
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+  background-color: #333;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.drawing-tool-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  background-color: #444;
+  color: #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.drawing-tool-btn:hover {
+  background-color: #555;
+}
+
+.drawing-tool-btn.active {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+.drawing-tool-btn i {
+  font-size: 18px;
+}
+
+/* Adicione estilos específicos para cada ferramenta de desenho */
+.drawing-tool-btn.active[title="Borracha"] ~ .drawing-canvas {
+  cursor: cell;
+}
+
+.drawing-tool-btn.active[title="Spray"] ~ .drawing-canvas {
+  cursor: crosshair;
+}
+
+.drawing-tool-btn.active[title="Pincel"] ~ .drawing-canvas {
+  cursor: crosshair;
+}
+
+/* Atualize os estilos das camadas */
+.layer-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.layer-image.selected {
+  outline: 2px solid #3dd1e7;
+}
+
+.layer-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Remova os cursores de movimento e redimensionamento */
+#image-container.move-mode,
+#image-container.resize-mode {
+  cursor: default;
+}
+
+/* Estilo para o botão de deletar imagem */
+.delete-image-btn {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #ff4444;
+  border: none;
   color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 1000;
 }
 
-.App-link {
-  color: #61dafb;
+.delete-image-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.1);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.delete-image-btn i {
+  font-size: 12px;
+}
+
+/* Estilos para o popup de save */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.save-popup {
+  background-color: #222;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.save-popup h2 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.format-selection {
+  margin-bottom: 20px;
+}
+
+.format-selection label {
+  display: block;
+  color: #ddd;
+  margin-bottom: 8px;
+}
+
+.format-selection select {
+  width: 100%;
+  padding: 8px;
+  background-color: #333;
+  border: 1px solid #444;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.download-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.download-btn {
+  background-color: #3dd1e7;
+  color: #333;
+}
+
+.download-btn:hover {
+  background-color: #2bb5cb;
+}
+
+.cancel-btn {
+  background-color: #666;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background-color: #555;
 }

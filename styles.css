@@ -1,0 +1,320 @@
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #333;
+    color: #fff;
+}
+
+/* Cabeçalho */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #111;
+}
+
+.logo h1 {
+    color: #3dd1e7;
+    font-style: italic;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav-menu li {
+    margin-left: 20px;
+}
+
+.nav-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Barra de ferramentas */
+.toolbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #222;
+    border-bottom: 1px solid #444;
+}
+
+.tool-btn {
+    background: none;
+    border: none;
+    color: #ddd;
+    margin-right: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.tool-btn i {
+    margin-right: 5px;
+}
+
+.tool-btn.active {
+    border-bottom: 2px solid #3dd1e7;
+    color: #fff;
+}
+
+.settings-btn {
+    margin-left: auto;
+    cursor: pointer;
+    color: #ddd;
+    font-size: 18px;
+}
+
+/* Conteúdo principal */
+.main-content {
+    display: flex;
+    flex: 1;
+}
+
+/* Painel esquerdo */
+.left-panel {
+    width: 250px;
+    background-color: #222;
+    border-right: 1px solid #444;
+    padding: 20px 10px;
+}
+
+.tools-section h2 {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #444;
+}
+
+.tool-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tool-item:hover {
+    background-color: #333;
+}
+
+.tool-item i {
+    margin-right: 10px;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Área do canvas */
+.canvas-container {
+    flex: 1;
+    background-color: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: auto;
+}
+
+#canvas-area {
+    background-color: #555;
+    width: 800px;
+    height: 600px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.page-title {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 15px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    z-index: 10;
+}
+
+#image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.uploaded-image {
+    position: absolute;
+    cursor: move;
+    border: 2px solid transparent;
+}
+
+.uploaded-image.selected {
+    border: 2px solid #3dd1e7;
+}
+
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #3dd1e7;
+    border-radius: 50%;
+}
+
+.resize-handle.tl { top: -5px; left: -5px; cursor: nw-resize; }
+.resize-handle.tr { top: -5px; right: -5px; cursor: ne-resize; }
+.resize-handle.bl { bottom: -5px; left: -5px; cursor: sw-resize; }
+.resize-handle.br { bottom: -5px; right: -5px; cursor: se-resize; }
+
+/* Painel direito */
+.right-panel {
+    width: 300px;
+    background-color: #222;
+    border-left: 1px solid #444;
+    padding: 20px;
+}
+
+.properties-section h2 {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #444;
+}
+
+.property-group {
+    margin-bottom: 15px;
+}
+
+.property-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ddd;
+}
+
+.size-inputs, .position-inputs {
+    display: flex;
+    align-items: center;
+}
+
+.size-inputs input, .position-inputs input {
+    width: 80px;
+    padding: 5px;
+    background-color: #333;
+    border: 1px solid #555;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.size-inputs span {
+    margin: 0 10px;
+    color: #aaa;
+}
+
+.position-inputs input:first-child {
+    margin-right: 10px;
+}
+
+#apply-changes, #cancel-changes {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#apply-changes {
+    background-color: #3dd1e7;
+    color: #333;
+}
+
+#cancel-changes {
+    background-color: #444;
+    color: #fff;
+    margin-top: 5px;
+}
+
+/* Rodapé */
+.footer {
+    background-color: #111;
+    padding: 20px;
+    text-align: center;
+}
+
+.social-links {
+    margin-bottom: 15px;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 0 10px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 12px;
+}
+
+.copyright {
+    color: #aaa;
+    font-size: 12px;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .left-panel, .right-panel {
+        width: 200px;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .left-panel, .right-panel {
+        width: 100%;
+        border: none;
+    }
+    .left-panel {
+        border-bottom: 1px solid #444;
+    }
+    .right-panel {
+        border-top: 1px solid #444;
+    }
+} 
